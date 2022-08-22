@@ -16,7 +16,8 @@ const Products = () => {
 		setOpenModel((prev) => !prev);
 	};
 	return (
-		<div>
+		<div className="w-4/5">
+			<h2 className="text-3xl text-blue-500 p-4">Products</h2>
 			<div className="grid grid-cols-4">
 				{products.map((product, index) => (
 					<Card
@@ -24,6 +25,7 @@ const Products = () => {
 						name={`Màn hình ${product.attributes.brand.data.attributes.name} 
 					${product.attributes.model} ${product.attributes.size}`}
 						imgUrl={product.attributes.image.data.attributes.url}
+						price="11.000.000"
 						onClick={() => handleSelectProduct(product)}
 					/>
 				))}

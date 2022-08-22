@@ -28,3 +28,17 @@ declare interface ProductsData {
 		};
 	};
 }
+
+declare interface Brand {
+	id: string;
+	attributes: {
+		name: string;
+		logo: {
+			data: {
+				attributes: {
+					url: string;
+				};
+			};
+		};
+	};
+}
