@@ -48,7 +48,9 @@ export default function Home({ data }) {
 						{products.map((product, index) => (
 							<Card
 								key={index}
-								product={product}
+								imgUrl={product.attributes.image.data.attributes.url}
+								name={`Màn hình ${product.attributes.brand.data.attributes.name} 
+								${product.attributes.model} ${product.attributes.size}`}
 								onClick={() => router.push(`/${product.id}`)}
 							/>
 						))}

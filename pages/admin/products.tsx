@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "../../components/Card";
-import EditModal from "../../components/EditModal";
+import EditProduct from "../../components/EditProduct";
 import { FetchProducts } from "../../src/services/product";
 
 const Products = () => {
@@ -21,13 +21,15 @@ const Products = () => {
 				{products.map((product, index) => (
 					<Card
 						key={index}
-						product={product}
+						name={`Màn hình ${product.attributes.brand.data.attributes.name} 
+					${product.attributes.model} ${product.attributes.size}`}
+						imgUrl={product.attributes.image.data.attributes.url}
 						onClick={() => handleSelectProduct(product)}
 					/>
 				))}
 			</div>
 			{openModal ? (
-				<EditModal setOpenModal={setOpenModel} product={productSelected} />
+				<EditProduct setOpenModal={setOpenModel} product={productSelected} />
 			) : null}
 		</div>
 	);
