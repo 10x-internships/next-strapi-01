@@ -1,8 +1,13 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 
-const Input = () => {
+interface Props extends HTMLAttributes<HTMLInputElement> {}
+
+const Input = ({ ...props }: Props) => {
 	return (
-		<input type="text" className="px-3 py-2 rounded-l-lg w-1/3 outline-none" />
+		<input
+			{...props}
+			type="text"
+		/>
 	);
 };
 

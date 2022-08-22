@@ -19,3 +19,12 @@ declare interface Product {
 		};
 	};
 }
+declare interface ProductsData {
+	data: Array<Product>;
+	meta: {
+		pagination: {
+			pageCount: number;
+			total: number;
+		};
+	};
+}

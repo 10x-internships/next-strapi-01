@@ -1,20 +1,15 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { HTMLAttributes } from "react";
 import { urlBuilder } from "../utils/UrlBuilder";
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
 	product: Product;
 }
 
-const Card = ({ product }: Props) => {
-	const router = useRouter();
-
+const Card = ({ product, ...props }: Props) => {
 	return (
-		<div
-			className="w-56 h-72 hover:shadow-lg cursor-pointer m-6"
-			onClick={() => router.push(`/${product.id}`)}
-		>
+		<div className="w-56 h-72 hover:shadow-lg cursor-pointer m-6" {...props}>
 			<Image
 				height={370}
 				width={380}
