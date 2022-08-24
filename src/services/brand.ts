@@ -1,6 +1,6 @@
 const URL = "http://localhost:1337";
 
-export const FetchBrand = async () => {
+export const FetchBrands = async () => {
 	const params = {
 		method: "POST",
 		headers: {
@@ -21,6 +21,7 @@ export const FetchBrand = async () => {
                         name
                         logo{
                           data{
+                            id
                             attributes{
                               url
                             }
@@ -38,4 +39,14 @@ export const FetchBrand = async () => {
 	const data = await res.json();
 
 	return data.data;
+};
+export const UpdateBrand = async () => {
+	const params = {};
+};
+
+export const CreateBrand = async () => {
+	const params = {};
+};
+export const DeleteBrand = async () => {
+	const params = {};
 };

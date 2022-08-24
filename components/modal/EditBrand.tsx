@@ -1,7 +1,8 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { urlBuilder } from "../utils/UrlBuilder";
+import { urlBuilder } from "../../utils/UrlBuilder";
 import EditModal from "./EditModal";
 import Image from "next/image";
+import { DeleteProduct } from "../../src/services/product";
 
 interface Props {
 	brand: Brand;
@@ -32,10 +33,6 @@ const EditBrand = (props: Props) => {
 					<label className="text-white text-xs" htmlFor="brands">
 						Products
 					</label>
-					<select className="w-full py-1" name="brands" id="brands">
-						<option value="Asus">Asus</option>
-						<option value="LG">LG</option>
-					</select>
 					<input type="file" name="" id="" />
 					<div className="flex justify-evenly my-5">
 						<button className="px-4 py-1 text-white bg-red-500 rounded-lg outline-none">

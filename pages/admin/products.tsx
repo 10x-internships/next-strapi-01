@@ -1,37 +1,110 @@
 import React, { useEffect, useState } from "react";
+import Button from "../../components/Button";
 import Card from "../../components/Card";
-import EditProduct from "../../components/EditProduct";
+import EditProduct from "../../components/modal/EditProduct";
+import Pagination from "../../components/Pagination";
 import { FetchProducts } from "../../src/services/product";
 
+const blankProduct: Product = {
+	id: "",
+	attributes: {
+		size: 0,
+		model: "",
+		image: {
+			data: {
+				id: "30",
+				attributes: {
+					url: "",
+				},
+			},
+		},
+		brand: {
+			data: {
+				id: "1",
+				attributes: {
+					name: "",
+				},
+			},
+		},
+	},
+};
+const initProductsData = {
+	data: [],
+	meta: {
+		pagination: {
+			pageCount: 0,
+			total: 0,
+		},
+	},
+};
 const Products = () => {
 	const [products, setProducts] = useState<Array<Product>>([]);
-	const [openModal, setOpenModel] = useState<boolean>(false);
+	const [currentPage, setCurrentPage] = useState<string>("1");
+	const [productsData, setProductsData] =
+		useState<ProductsData>(initProductsData);
+	const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+	const [openCreateModal, setOpenCreateModal] = useState<boolean>(false);
 	const [productSelected, setProductSelected] = useState<Product>(undefined);
 
 	useEffect(() => {
-		FetchProducts().then((data) => setProducts(data.data.products.data));
+		FetchProducts().then((data) => {
+			setProductsData(data.data.products);
+			setProducts(data.data.products.data);
+		});
 	}, []);
+	useEffect(() => {
+		FetchProducts(currentPage).then((data) =>
+			setProducts(data.data.products.data)
+		);
+	}, [currentPage]);
 	const handleSelectProduct = (product: Product) => {
 		setProductSelected(product);
-		setOpenModel((prev) => !prev);
+		setOpenEditModal(true);
 	};
+	const paginate = (pageNumber: number) => {
+		setCurrentPage(`${pageNumber}`);
+	};
+
 	return (
 		<div className="w-4/5">
-			<h2 className="text-3xl text-blue-500 p-4">Products</h2>
+			<div className="">
+				<h2 className="text-3xl text-blue-500 p-4">Products</h2>
+				<Button
+					content={"Create new product"}
+					onClick={() => setOpenCreateModal(true)}
+				/>
+			</div>
 			<div className="grid grid-cols-4">
 				{products.map((product, index) => (
 					<Card
 						key={index}
 						name={`Màn hình ${product.attributes.brand.data.attributes.name} 
-					${product.attributes.model} ${product.attributes.size}`}
+					${product.attributes.model} ${product.attributes.size} Inches`}
 						imgUrl={product.attributes.image.data.attributes.url}
 						price="11.000.000"
 						onClick={() => handleSelectProduct(product)}
 					/>
 				))}
 			</div>
-			{openModal ? (
-				<EditProduct setOpenModal={setOpenModel} product={productSelected} />
+			<div className="">
+				<Pagination
+					numOfPages={productsData.meta.pagination.pageCount}
+					paginate={paginate}
+				/>
+			</div>
+			{openEditModal ? (
+				<EditProduct
+					setOpenModal={setOpenEditModal}
+					product={productSelected}
+					isCreate={false}
+				/>
+			) : null}
+			{openCreateModal ? (
+				<EditProduct
+					setOpenModal={setOpenCreateModal}
+					product={blankProduct}
+					isCreate={true}
+				/>
 			) : null}
 		</div>
 	);

@@ -5,6 +5,7 @@ declare interface Product {
 		model: string;
 		image: {
 			data: {
+				id: string;
 				attributes: {
 					url: string;
 				};
@@ -12,6 +13,7 @@ declare interface Product {
 		};
 		brand: {
 			data: {
+				id: string;
 				attributes: {
 					name: string;
 				};
@@ -35,6 +37,7 @@ declare interface Brand {
 		name: string;
 		logo: {
 			data: {
+				id: string;
 				attributes: {
 					url: string;
 				};
