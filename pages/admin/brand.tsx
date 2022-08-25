@@ -19,7 +19,7 @@ const Brand = () => {
 		<div className="w-4/5">
 			<div>
 				<h2 className="text-3xl text-blue-500 p-4">Brands</h2>
-				<Button content={"Create new brand"} />
+				<Button content={"Add new brand"} />
 			</div>
 			<div className="grid grid-cols-4">
 				{brands.map((brand, index) => (

@@ -11,7 +11,6 @@ const Admin = () => {
 	useEffect(() => {
 		if (!localStorage.getItem("jwt")) {
 			router.push("admin/auth");
-			// console.log("sdfsfdsd");
 		}
 	}, []);
 	const collectionTypes = ["products", "brand"];
@@ -27,7 +26,7 @@ const Admin = () => {
 							<div
 								className={`py-2 px-1 rounded-md cursor-pointer hover:bg-slate-100 ${
 									type === collectionType
-										? `font-bold text-blue-300 bg-slate-200`
+										? `font-bold text-blue-400 bg-slate-200`
 										: ``
 								}`}
 								key={index}

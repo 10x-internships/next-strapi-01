@@ -229,8 +229,12 @@ export const DELETE = gql`
 export const UPLOAD = gql`
 	mutation ($file: Upload!) {
 		upload(file: $file) {
-			name
-			id
+			data {
+				id
+				attributes {
+					name
+				}
+			}
 		}
 	}
 `;

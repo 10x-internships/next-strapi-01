@@ -17,6 +17,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@types/apollo-upload-client": "^17.0.1",
     "@types/node": "^18.6.5",
     "@types/react": "^18.0.17",
     "autoprefixer": "^10.4.8",

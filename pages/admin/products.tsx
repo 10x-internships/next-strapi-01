@@ -52,28 +52,29 @@ const Products = () => {
 			setProducts(data.data.products.data);
 		});
 	}, []);
+
 	useEffect(() => {
 		FetchProducts(currentPage).then((data) =>
 			setProducts(data.data.products.data)
 		);
 	}, [currentPage]);
+
 	const handleSelectProduct = (product: Product) => {
 		setProductSelected(product);
 		setOpenEditModal(true);
 	};
+
 	const paginate = (pageNumber: number) => {
 		setCurrentPage(`${pageNumber}`);
 	};
 
 	return (
 		<div className="w-4/5">
-			<div className="">
-				<h2 className="text-3xl text-blue-500 p-4">Products</h2>
-				<Button
-					content={"Create new product"}
-					onClick={() => setOpenCreateModal(true)}
-				/>
-			</div>
+			<h2 className="text-3xl text-blue-500 p-4">Products</h2>
+			<Button
+				content={"Add new product"}
+				onClick={() => setOpenCreateModal(true)}
+			/>
 			<div className="grid grid-cols-4">
 				{products.map((product, index) => (
 					<Card
@@ -81,17 +82,14 @@ const Products = () => {
 						name={`Màn hình ${product.attributes.brand.data.attributes.name} 
 					${product.attributes.model} ${product.attributes.size} Inches`}
 						imgUrl={product.attributes.image.data.attributes.url}
-						price="11.000.000"
 						onClick={() => handleSelectProduct(product)}
 					/>
 				))}
 			</div>
-			<div className="">
-				<Pagination
-					numOfPages={productsData.meta.pagination.pageCount}
-					paginate={paginate}
-				/>
-			</div>
+			<Pagination
+				numOfPages={productsData.meta.pagination.pageCount}
+				paginate={paginate}
+			/>
 			{openEditModal ? (
 				<EditProduct
 					setOpenModal={setOpenEditModal}

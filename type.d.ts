@@ -1,3 +1,4 @@
+// declare module "apollo-upload-client";
 declare interface Product {
 	id: string;
 	attributes: {

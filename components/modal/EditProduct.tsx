@@ -8,7 +8,7 @@ import React, {
 import Image from "next/image";
 import EditModal from "./EditModal";
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
-import { createUploadLink } from "apollo-upload-client";
+// import { createUploadLink } from "apollo-upload-client";
 import { urlBuilder } from "../../utils/UrlBuilder";
 import {
 	CREATE,
@@ -17,6 +17,7 @@ import {
 	UPLOAD,
 } from "../../src/services/product";
 import { FetchBrands } from "../../src/services/brand";
+import { createUploadLink } from "apollo-upload-client";
 
 const URL = "http://localhost:1337";
 
@@ -61,10 +62,9 @@ const EditProduct = (props: Props) => {
 	}, []);
 
 	const onImageChange = (event) => {
-		console.log(event.target.files[0]);
+		// console.log(event.target.files[0]);
 
 		setFile(event.target.files[0]);
-		console.log(file);
 	};
 	const onChangeInput = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -76,6 +76,7 @@ const EditProduct = (props: Props) => {
 	};
 	const onSubmit = async (e) => {
 		e.preventDefault();
+		console.log(file);
 		client
 			.mutate({
 				mutation: UPLOAD,
@@ -84,29 +85,25 @@ const EditProduct = (props: Props) => {
 				},
 			})
 			.then((res) => {
-				console.log(res);
+				client
+					.mutate({
+						mutation: CREATE,
+						variables: {
+							...modifiedProduct,
+							size: parseFloat(modifiedProduct.size as unknown as string),
+							image: res.data.upload.data.id,
+						},
+					})
+					.then((res) => {
+						setOpenModal(false);
+					})
+					.catch((err) => {
+						console.error(err);
+					});
 			})
 			.catch((err) => {
 				console.error(err);
 			});
-
-		// console.log({ ...modifiedProduct });
-
-		// client
-		// 	.mutate({
-		// 		mutation: CREATE,
-		// 		variables: {
-		// 			...modifiedProduct,
-		// 			size: parseFloat(modifiedProduct.size as unknown as string),
-		// 		},
-		// 	})
-		// 	.then((res) => {
-		// 		console.log(res);
-		// 		setOpenModal(false);
-		// 	})
-		// 	.catch((err) => {
-		// 		console.error(err);
-		// 	});
 	};
 	const handleDeleteProduct = (id: string) => {
 		client
@@ -127,7 +124,7 @@ const EditProduct = (props: Props) => {
 		<EditModal setOpenModal={setOpenModal}>
 			<form className="flex" onSubmit={onSubmit}>
 				<Image
-					width={300}
+					width={330}
 					height={300}
 					src={urlBuilder(product.attributes.image.data.attributes.url)}
 				/>
