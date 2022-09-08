@@ -8,7 +8,7 @@ const Button = ({ content, ...props }: Props) => {
 	return (
 		<button
 			{...props}
-			className="px-3 py-2 bg-pink-300 rounded-r-lg text-white"
+			className="px-3 py-2 rounded-r-lg text-white bg-pink-300"
 		>
 			{content}
 		</button>
