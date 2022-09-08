@@ -15,10 +15,22 @@ const Admin = () => {
 	}, []);
 	const collectionTypes = ["products", "brand"];
 	const [type, setType] = useState<string>(collectionTypes[0]);
+	const handleLogout = () => {
+		localStorage.removeItem("jwt");
+		router.push("/admin/auth");
+	};
 	return (
 		<div>
 			<div>
-				<h1 className="text-4xl px-2 bg-blue-500 text-white py-4">CMS</h1>
+				<div className="py-4 px-2 bg-blue-500 flex justify-between">
+					<h1 className="text-4xl text-white ">CMS</h1>
+					<button
+						className="rounded-full px-3 text-white bg-red-500 cursor-pointer"
+						onClick={handleLogout}
+					>
+						Logout
+					</button>
+				</div>
 				<div className="flex">
 					<div className="w-1/5 h-full px-2 border-r-2 border-blue-900">
 						<h2 className="text-3xl text-blue-500 py-4">Collection types</h2>

@@ -1,3 +1,5 @@
+import { gql } from "@apollo/client";
+
 const URL = "http://localhost:1337";
 
 export const FetchBrands = async () => {
@@ -40,13 +42,53 @@ export const FetchBrands = async () => {
 
 	return data.data;
 };
-export const UpdateBrand = async () => {
-	const params = {};
-};
+export const UPDATEBRAND = gql`
+	mutation ($name: String, $id: ID, $logo: ID) {
+		updateBrand(id: $id, data: { logo: $logo, name: $name }) {
+			data {
+				id
+				attributes {
+					name
+					logo {
+						data {
+							id
+							attributes {
+								url
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+`;
 
-export const CreateBrand = async () => {
-	const params = {};
-};
-export const DeleteBrand = async () => {
-	const params = {};
-};
+export const CREATEBRAND = gql`
+	mutation ($name: String, $logo: ID) {
+		createBrand(data: { name: $name, logo: $logo }) {
+			data {
+				id
+				attributes {
+					name
+					logo {
+						data {
+							id
+							attributes {
+								url
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+`;
+export const DeleteBrand = gql`
+	mutation ($id: ID!) {
+		deleteBrand(id: $id) {
+			data {
+				id
+			}
+		}
+	}
+`;

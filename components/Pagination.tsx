@@ -22,7 +22,9 @@ const Pagination = ({ numOfPages, paginate }) => {
 							number === pageSelected && `bg-slate-300`
 						}`}
 					>
-						<a onClick={() => onClick(number)}>{number}</a>
+						<a id="page" onClick={() => onClick(number)}>
+							{number}
+						</a>
 					</li>
 				))}
 			</ul>

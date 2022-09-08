@@ -43,7 +43,9 @@ const Login = () => {
 				router.push("/admin");
 			})
 			.catch((err) => {
-				alert(err);
+				console.log(err);
+
+				alert(err.message);
 			});
 	};
 	const onSubmit = (e) => {
