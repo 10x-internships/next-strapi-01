@@ -1,23 +1,11 @@
-import React, {
-	Dispatch,
-	ReactNode,
-	SetStateAction,
-	useEffect,
-	useState,
-} from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 import EditModal from "./EditModal";
-import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
-// import { createUploadLink } from "apollo-upload-client";
-import { urlBuilder } from "../../utils/UrlBuilder";
-import {
-	CREATE,
-	DELETE,
-	DeleteProduct,
-	UPLOAD,
-} from "../../src/services/product";
-import { FetchBrands } from "../../src/services/brand";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
+import { urlBuilder } from "../../utils/UrlBuilder";
+import { CREATE, DELETE, UPLOAD } from "../../src/services/product";
+import { FetchBrands } from "../../src/services/brand";
 
 const URL = "http://localhost:1337";
 
@@ -62,10 +50,9 @@ const EditProduct = (props: Props) => {
 	}, []);
 
 	const onImageChange = (event) => {
-		// console.log(event.target.files[0]);
-
 		setFile(event.target.files[0]);
 	};
+
 	const onChangeInput = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => {
@@ -128,7 +115,7 @@ const EditProduct = (props: Props) => {
 					height={300}
 					src={urlBuilder(product.attributes.image.data.attributes.url)}
 				/>
-				<div className="px-4 py-6">
+				<div className="px-4 py-6 max-w-sm">
 					<label htmlFor="model" className="text-white text-xs">
 						Model:{" "}
 					</label>
@@ -175,7 +162,12 @@ const EditProduct = (props: Props) => {
 							</option>
 						))}
 					</select>
-					<input type="file" name="" id="" onChange={onImageChange} />
+					<input
+						type="file"
+						name="upload"
+						id="upload"
+						onChange={onImageChange}
+					/>
 					<div className="flex justify-evenly my-5">
 						<button
 							type="button"

@@ -10,16 +10,14 @@ const EditModal = (props: Props) => {
 	const { setOpenModal, children } = props;
 	return (
 		<Modal>
-			<div className="bg-blue-400 relative">
-				<div className="flex ">
-					<button
-						className="absolute top-0 right-1 p-1 cursor-pointer"
-						onClick={() => setOpenModal(false)}
-					>
-						X
-					</button>
-					{children}
-				</div>
+			<div className="bg-blue-500 relative ">
+				<button
+					className="absolute top-0 right-1 p-1 cursor-pointer"
+					onClick={() => setOpenModal(false)}
+				>
+					X
+				</button>
+				<div className="">{children}</div>
 			</div>
 		</Modal>
 	);
